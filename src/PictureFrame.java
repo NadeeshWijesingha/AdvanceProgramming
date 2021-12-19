@@ -5,6 +5,10 @@ import javax.swing.*;
 public class PictureFrame {
   public int[] reroll = null;
   Aardvark master = null;
+  
+  int x = 30;
+  int y = 20;
+  int degree = 10;
 
   public void drawDominoes(Graphics g, Aardvark aardvark) {
     for (Domino d : aardvark._d) {
@@ -18,7 +22,7 @@ public class PictureFrame {
     public void drawGrid(Graphics g) {
       for (int are = 0; are < 7; are++) {
         for (int see = 0; see < 8; see++) {
-          drawDigitGivenCentre(g, 30 + see * 20, 30 + are * 20, 20,
+          drawDigitGivenCentre(g, x + see * y, x + are * y, y,
               master.grid[are][see]);
         }
       }
@@ -27,20 +31,20 @@ public class PictureFrame {
     public void drawGridLines(Graphics g) {
       g.setColor(Color.LIGHT_GRAY);
       for (int are = 0; are <= 7; are++) {
-        g.drawLine(20, 20 + are * 20, 180, 20 + are * 20);
+        g.drawLine(y, y + are * y, 180, y + are * y);
       }
       for (int see = 0; see <= 8; see++) {
-        g.drawLine(20 + see * 20, 20, 20 + see * 20, 160);
+        g.drawLine(y + see * y, y, y + see * y, 160);
       }
     }
 
     public void drawHeadings(Graphics g) {
       for (int are = 0; are < 7; are++) {
-        fillDigitGivenCentre(g, 10, 30 + are * 20, 20, are+1);
+        fillDigitGivenCentre(g, degree, x + are * y, y, are+1);
       }
 
       for (int see = 0; see < 8; see++) {
-        fillDigitGivenCentre(g, 30 + see * 20, 10, 20, see+1);
+        fillDigitGivenCentre(g, x + see * y, degree, y, see+1);
       }
     }
 
@@ -51,12 +55,12 @@ public class PictureFrame {
         int w = Math.abs(d.lx - d.hx) + 1;
         int h = Math.abs(d.ly - d.hy) + 1;
         g.setColor(Color.WHITE);
-        g.fillRect(20 + x * 20, 20 + y * 20, w * 20, h * 20);
+        g.fillRect(y + x * y, y + y * y, w * y, h * y);
         g.setColor(Color.RED);
-        g.drawRect(20 + x * 20, 20 + y * 20, w * 20, h * 20);
-        drawDigitGivenCentre(g, 30 + d.hx * 20, 30 + d.hy * 20, 20, d.high,
+        g.drawRect(y + x * y, y + y * y, w * y, h * y);
+        drawDigitGivenCentre(g, x + d.hx * y, x + d.hy * y, y, d.high,
             Color.BLUE);
-        drawDigitGivenCentre(g, 30 + d.lx * 20, 30 + d.ly * 20, 20, d.low,
+        drawDigitGivenCentre(g, x + d.lx * y, x + d.ly * y, y, d.low,
             Color.BLUE);
       }
     }
