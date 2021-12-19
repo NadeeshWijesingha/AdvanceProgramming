@@ -50,10 +50,10 @@ public class PictureFrame {
 
     public void drawDomino(Graphics g, Domino d) {
       if (d.placed) {
-        int y = Math.min(d.ly, d.hy);
-        int x = Math.min(d.lx, d.hx);
-        int w = Math.abs(d.lx - d.hx) + 1;
-        int h = Math.abs(d.ly - d.hy) + 1;
+        final int y = Math.min(d.ly, d.hy);
+        final int x = Math.min(d.lx, d.hx);
+        final int w = Math.abs(d.lx - d.hx) + 1;
+        final int h = Math.abs(d.ly - d.hy) + 1;
         g.setColor(Color.WHITE);
         g.fillRect(y + x * y, y + y * y, w * y, h * y);
         g.setColor(Color.RED);
