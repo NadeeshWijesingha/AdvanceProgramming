@@ -275,17 +275,17 @@ public class Aardvark {
   public final int ZERO = 0;
 
   public void run() {
-    IOSpecialist io = new IOSpecialist();
 
-    System.out
-        .println("Welcome To Abominodo - The Best Dominoes Puzzle Game in the Universe");
+    IOLibrary io = new IOLibrary();
+    System.out.println("Welcome To Abominodo - The Best Dominoes Puzzle Game in the Universe");
+
     System.out.println("Version 1.0 (c), Kevan Buckley, 2010");
     System.out.println();
     System.out.println(MultiLinugualStringTable.getMessage(0));
     playerName = io.getString();
 
-    System.out.printf("%s %s. %s", MultiLinugualStringTable.getMessage(1),
-        playerName, MultiLinugualStringTable.getMessage(2));
+    System.out.printf("%s %s. %s", MultiLinugualStringTable.getMessage(1), playerName,
+            MultiLinugualStringTable.getMessage(2));
 
     int _$_ = -9;
     while (_$_ != ZERO) {
