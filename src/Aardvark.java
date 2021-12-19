@@ -173,13 +173,13 @@ public class Aardvark {
   }
 
   private void tryToRotateDominoAt(int x, int y) {
-    Domino d = findDominoAt(x, y);
+    Domino d = findDominoAndGuess(x, y, _d);
     if (thisIsTopLeftOfDomino(x, y, d)) {
       if (d.ishl()) {
         boolean weFancyARotation = Math.random() < 0.5;
         if (weFancyARotation) {
           if (theCellBelowIsTopLeftOfHorizontalDomino(x, y)) {
-            Domino e = findDominoAt(x, y + 1);
+            Domino e = findDominoAndGuess(x, y + 1, _d);
             e.hx = x;
             e.lx = x;
             d.hx = x + 1;
@@ -194,7 +194,7 @@ public class Aardvark {
         boolean weFancyARotation = Math.random() < 0.5;
         if (weFancyARotation) {
           if (theCellToTheRightIsTopLeftOfVerticalDomino(x, y)) {
-            Domino e = findDominoAt(x + 1, y);
+            Domino e = findDominoAndGuess(x + 1, y, _d);
             e.hx = x;
             e.lx = x + 1;
             d.hx = x;
@@ -211,12 +211,12 @@ public class Aardvark {
   }
 
   private boolean theCellToTheRightIsTopLeftOfVerticalDomino(int x, int y) {
-    Domino e = findDominoAt(x + 1, y);
+    Domino e = findDominoAndGuess(x + 1, y, _d);
     return thisIsTopLeftOfDomino(x + 1, y, e) && !e.ishl();
   }
 
   private boolean theCellBelowIsTopLeftOfHorizontalDomino(int x, int y) {
-    Domino e = findDominoAt(x, y + 1);
+    Domino e = findDominoAndGuess(x, y + 1, _d);
     return thisIsTopLeftOfDomino(x, y + 1, e) && e.ishl();
   }
 
@@ -233,8 +233,8 @@ public class Aardvark {
     return null;
   }
 
-  private Domino findGuessAt(int x, int y) {
-    for (Domino d : _g) {
+  private Domino findDominoAndGuess(int x, int y, List<Domino> _r) {
+    for (Domino d : _r) {
       if ((d.lx == x && d.ly == y) || (d.hx == x && d.hy == y)) {
         return d;
       }
@@ -529,7 +529,7 @@ public class Aardvark {
             }
             x13--;
             y13--;
-            Domino lkj = findGuessAt(x13, y13);
+            Domino lkj = findDominoAndGuess(x13, y13, _g);
             if (lkj == null) {
               System.out.println("Couln't find a domino there");
             } else {
@@ -650,7 +650,7 @@ public class Aardvark {
               }
               x3--;
               y3--;
-              Domino lkj2 = findDominoAt(x3, y3);
+              Domino lkj2 = findDominoAndGuess(x3, y3, _d);
               System.out.println(lkj2);
               break;
             case 3: {
