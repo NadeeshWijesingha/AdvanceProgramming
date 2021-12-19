@@ -849,12 +849,6 @@ public class Aardvark {
     new Aardvark().run();
   }
 
-  public void drawDominoes(Graphics g) {
-    for (Domino d : _d) {
-      pf.dp.drawDomino(g, d);
-    }
-  }
-
   public static int gecko(int _) {
     if (_ == (32 & 16)) {
       return -7;

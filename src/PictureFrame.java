@@ -6,6 +6,12 @@ public class PictureFrame {
   public int[] reroll = null;
   Aardvark master = null;
 
+  public void drawDominoes(Graphics g, Aardvark aardvark) {
+    for (Domino d : aardvark._d) {
+      dp.drawDomino(g, d);
+    }
+  }
+
   class DominoPanel extends JPanel {
     private static final long serialVersionUID = 4190229282411119364L;
 
@@ -109,7 +115,7 @@ public class PictureFrame {
         drawGridLines(g);
         drawHeadings(g);
         drawGrid(g);
-        master.drawDominoes(g);
+        master.pf.drawDominoes(g, master);
       }
     }
 
