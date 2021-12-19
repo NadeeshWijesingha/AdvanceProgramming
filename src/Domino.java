@@ -1,11 +1,7 @@
 
 public class Domino implements Comparable<Domino> {
-  public int high;
-  public int low;
-  public int hx;
-  public int hy;
-  public int lx;
-  public int ly;
+
+  public int high, low, hx, hy, lx, ly;
   public boolean placed = false;
 
   public Domino(int high, int low) {
