@@ -10,10 +10,11 @@ public class ObserverStartGame extends ObserverAbstract {
     @Override
     public void displayFrame() {
         aardvarkMainGUI.setLayout(new GridLayout(0, 1));
-        label = new JLabel(" Welcome To Abominodo");
+        label = new JLabel(" Welcome!");
         aardvarkMainGUI.add(label);
         aardvarkMainGUI.add(label);
         aardvarkMainGUI.pack();
         aardvarkMainGUI.setVisible(true);
+        label.setBackground(Color.GREEN);
     }
 }

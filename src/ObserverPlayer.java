@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class ObserverPlayer extends ObserverAbstract {
     public ObserverPlayer(ObserverSubject observerSubject) {
@@ -13,6 +14,7 @@ public class ObserverPlayer extends ObserverAbstract {
         text = new JTextField(25);
         aardvarkMainGUI.add(text);
         button = new JButton("PLAY!");
+        button.setBackground(Color.GREEN);
         aardvarkMainGUI.add(button);
         button.addActionListener(this);
         aardvarkMainGUI.pack();
