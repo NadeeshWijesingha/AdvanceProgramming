@@ -2,7 +2,7 @@
 public class Location extends SpacePlace {
   public int column;
   public int row;
-  public DIRECTION d;
+  public DIRECTION direction;
   
   public enum DIRECTION {VERTICAL, HORIZONTAL};
   
@@ -11,16 +11,16 @@ public class Location extends SpacePlace {
     this.column = column;
   }
 
-  public Location(int r, int column, DIRECTION d) {
+  public Location(int r, int column, DIRECTION direction) {
     this(r, column);
-    this.d=d;
+    this.direction = direction;
   }
   
   public String toString() {
-    if(d==null){
+    if(direction ==null){
       return "(" + (column +1) + "," + (row +1) + ")";
     } else {
-      return "(" + (column +1) + "," + (row +1) + "," + d + ")";
+      return "(" + (column +1) + "," + (row +1) + "," + direction + ")";
     }
   }
 }
