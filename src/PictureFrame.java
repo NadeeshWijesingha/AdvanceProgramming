@@ -104,7 +104,7 @@ public class PictureFrame {
         drawGrid(g);
       }
       if (master.mode == 1) {
-        master.drawGuesses(g);
+        master.drawGuesses(master, g);
       }
       if (master.mode == 0) {
         master.pf.drawDominoes(g, master);
