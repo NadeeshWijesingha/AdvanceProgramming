@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 public class ObserverPlayer extends ObserverAbstract {
-    public ObserverPlayer(ObserverSubject observerSubject){
+    public ObserverPlayer(ObserverSubject observerSubject) {
         this.observerSubject = observerSubject;
         this.observerSubject.attach(this);
     }

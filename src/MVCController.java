@@ -1,18 +1,18 @@
 public class MVCController {
-    private MVCModel model;
-    private MVCView view;
+    private final MVCModel model;
+    private final MVCView view;
 
-    public MVCController(MVCModel model, MVCView view){
+    public MVCController(MVCModel model, MVCView view) {
         this.model = model;
         this.view = view;
     }
 
-    public void setPlayerName(String playerName){
-        model.setName(playerName);
+    public String getName() {
+        return model.getName();
     }
 
-    public String getPlayerName(){
-        return model.getName();
+    public void setName(String name) {
+        model.setName(name);
     }
 
     public void updateView() {

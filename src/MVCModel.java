@@ -5,7 +5,7 @@ public class MVCModel {
         return name;
     }
 
-    public void setName(String playerName) {
-        this.name = playerName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

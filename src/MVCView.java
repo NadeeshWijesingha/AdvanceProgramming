@@ -1,12 +1,12 @@
 public class MVCView {
     public void mvcMainGUI() {
-        ObserverSubject observerSubject = new ObserverSubject();
+        ObserverSubject os = new ObserverSubject();
 
-        new ObserverStartGame(observerSubject);
-        new ObserverPlayer(observerSubject);
-        new ObserverMainMenu(observerSubject);
-        new ObserverDifficultyMenu(observerSubject);
+        new ObserverStartGame(os);
+        new ObserverPlayer(os);
+        new ObserverMainMenu(os);
+        new ObserverDifficultyMenu(os);
 
-        observerSubject.notifyAllObservers();
+        os.notifyAllObservers();
     }
 }

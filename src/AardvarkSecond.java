@@ -6,6 +6,18 @@ import java.util.List;
 
 public class AardvarkSecond {
 
+    public static int gecko(int n) {
+        if (n == (32 & 16)) {
+            return -7;
+        } else {
+            if (n < 0) {
+                return gecko(n + 1 | 0);
+            } else {
+                return gecko(n - 1 | 0);
+            }
+        }
+    }
+
     void generateDominoes(Aardvark aardvark) {
         aardvark._d = new LinkedList<Domino>();
         int count = 0;
@@ -73,7 +85,7 @@ public class AardvarkSecond {
         }
     }
 
-    int printGridorGuess(int number[][]) {
+    int printGridorGuess(int[][] number) {
         for (int are = 0; are < 7; are++) {
             for (int see = 0; see < 8; see++) {
                 if (number[are][see] != 9) {
@@ -126,19 +138,19 @@ public class AardvarkSecond {
     void rotateDominoes(Aardvark aardvark) {
         for (int x = 0; x < 7; x++) {
             for (int y = 0; y < 6; y++) {
-                aardvark.as.tryToRotateDominoAt(aardvark, x, y);
+                aardvark.aardvarkSecond.tryToRotateDominoAt(aardvark, x, y);
             }
         }
     }
 
     void tryToRotateDominoAt(Aardvark aardvark, int x, int y) {
-        Domino d = aardvark.as.findAt(aardvark, x, y, aardvark._d);
-        if (aardvark.as.thisIsTopLeftOfDomino(aardvark, x, y, d)) {
+        Domino d = aardvark.aardvarkSecond.findAt(aardvark, x, y, aardvark._d);
+        if (aardvark.aardvarkSecond.thisIsTopLeftOfDomino(aardvark, x, y, d)) {
             if (d.ishl()) {
                 boolean weFancyARotation = Math.random() < 0.5;
                 if (weFancyARotation) {
-                    if (aardvark.as.theCellBelowIsTopLeftOfHorizontalDomino(aardvark, x, y)) {
-                        Domino e = aardvark.as.findAt(aardvark, x, y + 1, aardvark._d);
+                    if (aardvark.aardvarkSecond.theCellBelowIsTopLeftOfHorizontalDomino(aardvark, x, y)) {
+                        Domino e = aardvark.aardvarkSecond.findAt(aardvark, x, y + 1, aardvark._d);
                         e.hx = x;
                         e.lx = x;
                         d.hx = x + 1;
@@ -152,8 +164,8 @@ public class AardvarkSecond {
             } else {
                 boolean weFancyARotation = Math.random() < 0.5;
                 if (weFancyARotation) {
-                    if (aardvark.as.theCellToTheRightIsTopLeftOfVerticalDomino(aardvark, x, y)) {
-                        Domino e = aardvark.as.findAt(aardvark, x + 1, y, aardvark._d);
+                    if (aardvark.aardvarkSecond.theCellToTheRightIsTopLeftOfVerticalDomino(aardvark, x, y)) {
+                        Domino e = aardvark.aardvarkSecond.findAt(aardvark, x + 1, y, aardvark._d);
                         e.hx = x;
                         e.lx = x + 1;
                         d.hx = x;
@@ -170,13 +182,13 @@ public class AardvarkSecond {
     }
 
     boolean theCellToTheRightIsTopLeftOfVerticalDomino(Aardvark aardvark, int x, int y) {
-        Domino e = aardvark.as.findAt(aardvark, x + 1, y, aardvark._d);
-        return aardvark.as.thisIsTopLeftOfDomino(aardvark, x + 1, y, e) && !e.ishl();
+        Domino e = aardvark.aardvarkSecond.findAt(aardvark, x + 1, y, aardvark._d);
+        return aardvark.aardvarkSecond.thisIsTopLeftOfDomino(aardvark, x + 1, y, e) && !e.ishl();
     }
 
     boolean theCellBelowIsTopLeftOfHorizontalDomino(Aardvark aardvark, int x, int y) {
-        Domino e = aardvark.as.findAt(aardvark, x, y + 1, aardvark._d);
-        return aardvark.as.thisIsTopLeftOfDomino(aardvark, x, y + 1, e) && e.ishl();
+        Domino e = aardvark.aardvarkSecond.findAt(aardvark, x, y + 1, aardvark._d);
+        return aardvark.aardvarkSecond.thisIsTopLeftOfDomino(aardvark, x, y + 1, e) && e.ishl();
     }
 
     boolean thisIsTopLeftOfDomino(Aardvark aardvark, int x, int y, Domino d) {
@@ -215,7 +227,7 @@ public class AardvarkSecond {
 
     public void drawGuesses(Aardvark aardvark, Graphics g) {
         for (Domino d : aardvark._g) {
-            aardvark.pf.dp.drawDomino(g, d);
+            aardvark.pictureFrame.dominoPanel.drawDomino(g, d);
         }
     }
 
@@ -242,18 +254,6 @@ public class AardvarkSecond {
             System.out.println("Thankyou for playing!");
         }
         System.exit(0);
-    }
-
-    public static int gecko(int n) {
-        if (n == (32 & 16)) {
-            return -7;
-        } else {
-            if (n < 0) {
-                return gecko(n + 1 | 0);
-            } else {
-                return gecko(n - 1 | 0);
-            }
-        }
     }
 }
 

@@ -1,138 +1,128 @@
+import javax.swing.*;
 import java.awt.*;
 
-import javax.swing.*;
-
 public class PictureFrame {
-  public int[] reroll = null;
-  Aardvark master = null;
-  
-  int x = 30;
-  int y = 20;
-  int degree = 10;
+    public DominoPanel dominoPanel;
+    Aardvark aardvark;
+    int x = 30;
+    int y = 20;
+    int degree = 10;
 
-  public void drawDominoes(Graphics g, Aardvark aardvark) {
-    for (Domino d : aardvark._d) {
-      dp.drawDomino(g, d);
-    }
-  }
-
-  class DominoPanel extends JPanel {
-    private static final long serialVersionUID = 4190229282411119364L;
-
-    public void drawGrid(Graphics g) {
-      for (int are = 0; are < 7; are++) {
-        for (int see = 0; see < 8; see++) {
-          drawDigitGivenCentre(g, x + see * y, x + are * y, y,
-              master.grid[are][see]);
+    public void drawDominoes(Graphics graphics, Aardvark aardvark) {
+        for (Domino d : aardvark._d) {
+            dominoPanel.drawDomino(graphics, d);
         }
-      }
     }
 
-    public void drawGridLines(Graphics g) {
-      g.setColor(Color.LIGHT_GRAY);
-      for (int are = 0; are <= 7; are++) {
-        g.drawLine(y, y + are * y, 180, y + are * y);
-      }
-      for (int see = 0; see <= 8; see++) {
-        g.drawLine(y + see * y, y, y + see * y, 160);
-      }
+    public void PictureFrame(Aardvark aardvark) {
+        this.aardvark = aardvark;
+        if (dominoPanel == null) {
+            JFrame f = new JFrame("Abominodo");
+            dominoPanel = new DominoPanel();
+            f.setContentPane(dominoPanel);
+            f.pack();
+            f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            f.setVisible(true);
+        }
     }
 
-    public void drawHeadings(Graphics g) {
-      for (int are = 0; are < 7; are++) {
-        fillDigitGivenCentre(g, degree, x + are * y, y, are+1);
-      }
+    class DominoPanel extends JPanel {
+        private static final long serialVersionUID = 4190229282411119364L;
 
-      for (int see = 0; see < 8; see++) {
-        fillDigitGivenCentre(g, x + see * y, degree, y, see+1);
-      }
+        public void drawGrid(Graphics graphics) {
+            for (int are = 0; are < 7; are++) {
+                for (int see = 0; see < 8; see++) {
+                    drawDigitGivenCentre(graphics, x + see * y, x + are * y, y,
+                            aardvark.grid[are][see]);
+                }
+            }
+        }
+
+        public void drawGridLines(Graphics graphics) {
+            graphics.setColor(Color.LIGHT_GRAY);
+            for (int are = 0; are <= 7; are++) {
+                graphics.drawLine(y, y + are * y, 180, y + are * y);
+            }
+            for (int see = 0; see <= 8; see++) {
+                graphics.drawLine(y + see * y, y, y + see * y, 160);
+            }
+        }
+
+        public void drawHeadings(Graphics graphics) {
+            for (int are = 0; are < 7; are++) {
+                fillDigitGivenCentre(graphics, degree, x + are * y, y, are + 1);
+            }
+
+            for (int see = 0; see < 8; see++) {
+                fillDigitGivenCentre(graphics, x + see * y, degree, y, see + 1);
+            }
+        }
+
+        public void drawDomino(Graphics graphics, Domino domino) {
+            if (domino.placed) {
+                final int y = Math.min(domino.ly, domino.hy);
+                final int x = Math.min(domino.lx, domino.hx);
+                final int w = Math.abs(domino.lx - domino.hx) + 1;
+                final int h = Math.abs(domino.ly - domino.hy) + 1;
+                graphics.setColor(Color.WHITE);
+                graphics.fillRect(y + x * y, y + y * y, w * y, h * y);
+                graphics.setColor(Color.RED);
+                graphics.drawRect(y + x * y, y + y * y, w * y, h * y);
+                drawDigitGivenCentre(graphics, x + domino.hx * y, x + domino.hy * y, domino.high
+                );
+                drawDigitGivenCentre(graphics, x + domino.lx * y, x + domino.ly * y, domino.low
+                );
+            }
+        }
+
+        void drawDigitGivenCentre(Graphics graphics, int x, int y, int diameter, int n) {
+            graphics.setColor(Color.BLACK);
+            FontMetrics fm = graphics.getFontMetrics();
+            String txt = Integer.toString(n);
+            graphics.drawString(txt, x - fm.stringWidth(txt) / 2, y + fm.getMaxAscent() / 2);
+        }
+
+        void drawDigitGivenCentre(Graphics graphics,
+                                  int x,
+                                  int y,
+                                  int n) {
+            graphics.setColor(Color.BLUE);
+            FontMetrics fm = graphics.getFontMetrics();
+            String txt = Integer.toString(n);
+            graphics.drawString(txt, x - fm.stringWidth(txt) / 2, y + fm.getMaxAscent() / 2);
+        }
+
+        void fillDigitGivenCentre(Graphics graphics, int x, int y, int diameter, int n) {
+            int radius = diameter / 2;
+            graphics.setColor(Color.GREEN);
+            graphics.fillOval(x - radius, y - radius, diameter, diameter);
+            graphics.setColor(Color.BLACK);
+            graphics.drawOval(x - radius, y - radius, diameter, diameter);
+            FontMetrics fm = graphics.getFontMetrics();
+            String txt = Integer.toString(n);
+            graphics.drawString(txt, x - fm.stringWidth(txt) / 2, y + fm.getMaxAscent() / 2);
+        }
+
+        @Override
+        protected void paintComponent(Graphics graphics) {
+            graphics.setColor(Color.YELLOW);
+            graphics.fillRect(0, 0, getWidth(), getHeight());
+            if (aardvark.mode == 0 || aardvark.mode == 1) {
+                drawGridLines(graphics);
+                drawHeadings(graphics);
+                drawGrid(graphics);
+            }
+            if (aardvark.mode == 1) {
+                aardvark.drawGuesses(aardvark, graphics);
+            }
+            if (aardvark.mode == 0) {
+                aardvark.pictureFrame.drawDominoes(graphics, aardvark);
+            }
+        }
+
+        public Dimension getPreferredSize() {
+            return new Dimension(202, 182);
+        }
     }
-
-    public void drawDomino(Graphics g, Domino d) {
-      if (d.placed) {
-        final int y = Math.min(d.ly, d.hy);
-        final int x = Math.min(d.lx, d.hx);
-        final int w = Math.abs(d.lx - d.hx) + 1;
-        final int h = Math.abs(d.ly - d.hy) + 1;
-        g.setColor(Color.WHITE);
-        g.fillRect(y + x * y, y + y * y, w * y, h * y);
-        g.setColor(Color.RED);
-        g.drawRect(y + x * y, y + y * y, w * y, h * y);
-        drawDigitGivenCentre(g, x + d.hx * y, x + d.hy * y, y, d.high,
-            Color.BLUE);
-        drawDigitGivenCentre(g, x + d.lx * y, x + d.ly * y, y, d.low,
-            Color.BLUE);
-      }
-    }
-
-    void drawDigitGivenCentre(Graphics g, int x, int y, int diameter, int n) {
-      int radius = diameter / 2;
-      g.setColor(Color.BLACK);
-      // g.drawOval(x - radius, y - radius, diameter, diameter);
-      FontMetrics fm = g.getFontMetrics();
-      String txt = Integer.toString(n);
-      g.drawString(txt, x - fm.stringWidth(txt) / 2, y + fm.getMaxAscent() / 2);
-    }
-
-    void drawDigitGivenCentre(Graphics g, int x, int y, int diameter, int n,
-        Color c) {
-      int radius = diameter / 2;
-      g.setColor(c);
-      // g.drawOval(x - radius, y - radius, diameter, diameter);
-      FontMetrics fm = g.getFontMetrics();
-      String txt = Integer.toString(n);
-      g.drawString(txt, x - fm.stringWidth(txt) / 2, y + fm.getMaxAscent() / 2);
-    }
-
-    void fillDigitGivenCentre(Graphics g, int x, int y, int diameter, int n) {
-      int radius = diameter / 2;
-      g.setColor(Color.GREEN);
-      g.fillOval(x - radius, y - radius, diameter, diameter);
-      g.setColor(Color.BLACK);
-      g.drawOval(x - radius, y - radius, diameter, diameter);
-      FontMetrics fm = g.getFontMetrics();
-      String txt = Integer.toString(n);
-      g.drawString(txt, x - fm.stringWidth(txt) / 2, y + fm.getMaxAscent() / 2);
-    }
-
-    protected void paintComponent(Graphics g) {
-      g.setColor(Color.YELLOW);
-      g.fillRect(0, 0, getWidth(), getHeight());
-      if (master.mode == 0 || master.mode == 1) {
-        drawGridLines(g);
-        drawHeadings(g);
-        drawGrid(g);
-      }
-      if (master.mode == 1) {
-        master.drawGuesses(master, g);
-      }
-      if (master.mode == 0) {
-        master.pf.drawDominoes(g, master);
-      }
-    }
-
-    public Dimension getPreferredSize() {
-      return new Dimension(202, 182);
-    }
-  }
-
-  public DominoPanel dp;
-
-  public void PictureFrame(Aardvark sf) {
-    master = sf;
-    if (dp == null) {
-      JFrame f = new JFrame("Abominodo");
-      dp = new DominoPanel();
-      f.setContentPane(dp);
-      f.pack();
-      f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-      f.setVisible(true);
-    }
-  }
-
-  public void reset() {
-    // TODO Auto-generated method stub
-
-  }
 
 }

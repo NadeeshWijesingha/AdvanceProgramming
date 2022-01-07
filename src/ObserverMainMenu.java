@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ObserverMainMenu extends ObserverAbstract {
-    public ObserverMainMenu(ObserverSubject observerSubject){
+    public ObserverMainMenu(ObserverSubject observerSubject) {
         this.observerSubject = observerSubject;
         this.observerSubject.attach(this);
     }

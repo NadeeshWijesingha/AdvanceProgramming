@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ObserverSubject {
-    private List<ObserverAbstract> observers = new ArrayList<ObserverAbstract>();
+    private final List<ObserverAbstract> observers = new ArrayList<ObserverAbstract>();
 
     public void attach(ObserverAbstract observer) {
         observers.add(observer);
